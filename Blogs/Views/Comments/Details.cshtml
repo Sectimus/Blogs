@@ -1,0 +1,58 @@
+﻿@model Blogs.Models.Comment
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Comment</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PostID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PostID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DatePosted)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DatePosted)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateEdited)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateEdited)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Body)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Body)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserID)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CommentID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

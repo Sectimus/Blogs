@@ -22,3 +22,25 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.boxcontainer {
+    background-color:lightgrey;
+    color:black;
+    padding:20px; 
+    box-shadow: 0 0 5px 2px rgba(0,0,0,.35)
+}
+
+.boxcontainerdark {
+    background-color:darkgray;
+    color:black;
+    padding:20px;
+    box-shadow: -4px 0 2px -2px rgba(0,0,0,0.4);
+    border-radius: 8px;
+}
+.boxcontainerblue {
+    background-color:deepskyblue;
+    box-shadow: inset 0 0 0px 0px rgba(255,255,255,.5);
+    color:white;
+    border:groove;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}

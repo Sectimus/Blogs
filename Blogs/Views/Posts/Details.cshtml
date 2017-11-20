@@ -1,0 +1,56 @@
+﻿@model Blogs.Models.Post
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Post</h4>
+    <hr />
+        <div class="boxcontainerblue">
+            <center><h2>@Html.DisplayFor(model => model.Title)</h2></center>
+            <p><font size =3>@Html.DisplayFor(model => model.Body)</font></p>
+        </div>
+    <dl class="dl-horizontal">
+        <dt>
+            <right><small><i>Date Posted:</i></small></right>
+        </dt>
+        <dd>
+            <right><small><i>@Html.DisplayFor(model => model.DatePosted)</i></small></right>
+        </dd>
+
+        <dt>
+            <right><small><i>Last Edited:</i></small></right>
+        </dt>
+        <dd>
+            <right><small><i>@Html.DisplayFor(model => model.DateEdited)</i></small></right>
+        </dd>
+
+        <dt>
+            <right><small><i>Posted by:</i></small></right>
+        </dt>
+        <dd>
+            <right><small><i>@Html.DisplayFor(model => model.UserID)</i></small></right>
+        </dd>
+        </dl>
+        @foreach (var c in Model.Comments)
+            {
+            <div class="boxcontainer">
+                @c.Body
+            </div>
+            <div>
+                Comment posted by @c.UserID on @c.DatePosted
+            </div>
+            <b></b>
+
+        }
+
+    </dl>
+
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.PostID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

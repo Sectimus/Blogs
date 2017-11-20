@@ -6,6 +6,9 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Blogs.Models
 {
+    /// <summary>
+    /// 
+    /// </summary>
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
@@ -17,7 +20,9 @@ namespace Blogs.Models
             return userIdentity;
         }
     }
-
+    /// <summary>
+    /// 
+    /// </summary>
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
@@ -29,5 +34,10 @@ namespace Blogs.Models
         {
             return new ApplicationDbContext();
         }
+
+        
+        //DbSets for any models to be in the database.
+        public DbSet <Post> Posts { get; set; }
+        public DbSet <Comment> Comments { get; set; }
     }
 }
