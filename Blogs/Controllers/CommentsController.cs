@@ -36,10 +36,6 @@ namespace Blogs.Controllers
         }
 
         // GET: Comments/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
 
         // POST: Comments/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -55,6 +51,23 @@ namespace Blogs.Controllers
                 return RedirectToAction("Index");
             }
 
+            return View(comment);
+        }
+        //////////////
+        //THIS IS IT//
+        //////////////
+        public ActionResult Create([Bind(Include = "CommentID,PostID,DatePosted,DateEdited,Body,UserID")] Comment comment, int passedPostID)
+        {
+            comment.PostID = passedPostID;
+            comment.UserID = User.Identity.Name;
+            comment.DatePosted = DateTime.Now;
+            comment.DateEdited = DateTime.Now;
+            if (ModelState.IsValid)
+            {
+                db.Comments.Add(comment);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
             return View(comment);
         }
 

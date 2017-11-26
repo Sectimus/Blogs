@@ -12,14 +12,13 @@ namespace Blogs.Models
     /// </summary>
     public class Post
     {
-        [Required]
+
         [Key]
         public int PostID { get; set; }
 
-        [Required]
-        public DateTime DatePosted { get; set; } = DateTime.Now;
+        public DateTime? DatePosted { get; set; }
 
-        public DateTime DateEdited { get; set; }
+        public DateTime? DateEdited { get; set; } = DateTime.Now;
 
         [Required]
         public String Title { get; set; }
@@ -28,7 +27,7 @@ namespace Blogs.Models
         [DataType(DataType.MultilineText)]
         public String Body { get; set; }
 
-        [Required]
+        
         public String UserID { get; set; }
 
         public virtual List<Comment> Comments { get; set; }

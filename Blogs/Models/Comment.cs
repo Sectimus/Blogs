@@ -15,13 +15,11 @@ namespace Blogs.Models
         [Key]
         public int CommentID { get; set; }
 
-     
         public int PostID { get; set; }
 
-        [Required]
-        public DateTime DatePosted { get; set; } = DateTime.Now;
+        public DateTime? DatePosted { get; set; }
 
-        public DateTime DateEdited { get; set; }
+        public DateTime? DateEdited { get; set; } = DateTime.Now;
 
         [Required]
         [DataType(DataType.MultilineText)]

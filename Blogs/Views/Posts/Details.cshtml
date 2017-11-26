@@ -9,7 +9,7 @@
 <div>
     <h4>Post</h4>
     <hr />
-        <div class="boxcontainerblue">
+        <div class="boxcontainerdark">
             <center><h2>@Html.DisplayFor(model => model.Title)</h2></center>
             <p><font size =3>@Html.DisplayFor(model => model.Body)</font></p>
         </div>
@@ -35,8 +35,13 @@
             <right><small><i>@Html.DisplayFor(model => model.UserID)</i></small></right>
         </dd>
         </dl>
+    @* Create comment on PostID *@
+    <p><a href="../../Comments/Create/@Model.PostID" class="btn btn-primary btn-lg">Comment &raquo;</a></p>
+
+    @* Comment section *@
+
         @foreach (var c in Model.Comments)
-            {
+        {
             <div class="boxcontainer">
                 @c.Body
             </div>
@@ -44,12 +49,10 @@
                 Comment posted by @c.UserID on @c.DatePosted
             </div>
             <b></b>
-
         }
 
-    </dl>
-
-</div>
+    </div>
+@* /Comment section *@
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.PostID }) |
     @Html.ActionLink("Back to List", "Index")

@@ -80,7 +80,7 @@ namespace Blogs.Migrations
             testpost.DatePosted = DateTime.Parse("1970-01-01 00:00:00");
             testpost.DateEdited = DateTime.Now;
             testpost.Title = "I am alive!";
-            testpost.UserID = adminuser.Id;
+            testpost.UserID = "god@god.com";
             testpost.Body = "Hello World!";
 
             context.Posts.AddOrUpdate(testpost);
@@ -88,21 +88,21 @@ namespace Blogs.Migrations
 
 
             //create related comments
-            
-                var testcomment = new Comment();
-                testcomment.CommentID = 1;
-                testcomment.PostID = 1;
-                testcomment.Body = ("I am comment #" + 1);
-                testcomment.UserID = user.Id;
-                testcomment.DatePosted = DateTime.Parse("1970-01-01 00:00:00");
-                testcomment.DateEdited = DateTime.Now;
-              
-                context.Comments.AddOrUpdate(testcomment);
+
+            var testcomment = new Comment();
+            testcomment.CommentID = 1;
+            testcomment.PostID = 1;
+            testcomment.Body = ("I am comment #" + 1);
+            testcomment.UserID = user.Id;
+            testcomment.DatePosted = DateTime.Parse("1970-01-01 00:00:00");
+            testcomment.DateEdited = DateTime.Now;
+
+            context.Comments.AddOrUpdate(testcomment);
 
             //COMMENT 1 [I am comment #1] [UserID] [1970-01-01 00:00:00]
             //COMMENT 2 [I am comment #2] [UserID] [1970-01-01 00:00:00] [Edit:NOW]
             context.SaveChanges();
-          
+
         }
     }
 }

@@ -46,15 +46,21 @@ namespace Blogs.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "PostID,DatePosted,DateEdited,Title,Body,UserID")] Post post)
+        public ActionResult Create([Bind(Include = "Title,Body")] Post post)
         {
+            post.UserID = User.Identity.Name;
+            post.DatePosted = DateTime.Now;
+            var errors = ModelState.Values.SelectMany(v => v.Errors);
             if (ModelState.IsValid)
             {
-                db.Posts.Add(post);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                //Testing if the user is logged in
+                if (User.Identity.IsAuthenticated == true)
+                {
+                    db.Posts.Add(post);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
-
             return View(post);
         }
 
@@ -78,13 +84,19 @@ namespace Blogs.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PostID,DatePosted,DateEdited,Title,Body,UserID")] Post post)
+        public ActionResult Edit( Post post)
         {
-            post.UserID = User.Identity.Name;
+            post.DateEdited = DateTime.Now;
             if (ModelState.IsValid)
             {
-              
-                db.Entry(post).State = EntityState.Modified;
+                var dbPost = db.Posts.FirstOrDefault(p => p.PostID == post.PostID);
+                if (dbPost == null)
+                {
+                    return HttpNotFound();
+                }
+                dbPost.Body = post.Body;
+                dbPost.Title = post.Title;
+                dbPost.DateEdited = DateTime.Now;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

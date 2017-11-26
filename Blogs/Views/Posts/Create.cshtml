@@ -10,7 +10,11 @@
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
-    
+    @Html.HiddenFor(m => m.PostID)
+    @Html.HiddenFor(m => m.DatePosted)
+    @Html.HiddenFor(m => m.DateEdited)
+    @Html.HiddenFor(m => m.UserID)
+
     <div class="form-horizontal">
         <h4>Post</h4>
         <hr />
