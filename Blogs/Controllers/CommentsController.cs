@@ -36,39 +36,35 @@ namespace Blogs.Controllers
         }
 
         // GET: Comments/Create
+        public ActionResult Create()
+        {
+            return View();
+        }
 
         // POST: Comments/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+                                                                                                                             //THIS IS NOT TRIGGERED WHEN A PARTIAL VIEW, BUT WILL WITH NON-PARTIAL VIEW//
         public ActionResult Create([Bind(Include = "CommentID,PostID,DatePosted,DateEdited,Body,UserID")] Comment comment)
         {
-            if (ModelState.IsValid)
-            {
-                db.Comments.Add(comment);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            return View(comment);
-        }
-        //////////////
-        //THIS IS IT//
-        //////////////
-        public ActionResult Create([Bind(Include = "CommentID,PostID,DatePosted,DateEdited,Body,UserID")] Comment comment, int passedPostID)
-        {
-            comment.PostID = passedPostID;
             comment.UserID = User.Identity.Name;
             comment.DatePosted = DateTime.Now;
             comment.DateEdited = DateTime.Now;
+
+            var errors = ModelState.Values.SelectMany(v => v.Errors);
             if (ModelState.IsValid)
             {
-                db.Comments.Add(comment);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                //Testing if the user is logged in
+                if (User.Identity.IsAuthenticated == true)
+                {
+                    db.Comments.Add(comment);
+                    db.SaveChanges();
+                    return PartialView();
+                }
             }
-            return View(comment);
+            return PartialView();
         }
 
         // GET: Comments/Edit/5

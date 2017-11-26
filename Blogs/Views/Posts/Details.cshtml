@@ -37,7 +37,9 @@
         </dl>
     @* Create comment on PostID *@
     <p><a href="../../Comments/Create/@Model.PostID" class="btn btn-primary btn-lg">Comment &raquo;</a></p>
+    @Html.Partial("~/Views/Comments/Create.cshtml", new Blogs.Models.Comment { PostID = Model.PostID })
 
+    }
     @* Comment section *@
 
         @foreach (var c in Model.Comments)
