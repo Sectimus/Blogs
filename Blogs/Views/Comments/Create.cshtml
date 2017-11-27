@@ -10,12 +10,11 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    @Html.HiddenFor(m => m.CommentID)
     @Html.HiddenFor(m => m.PostID)
     @Html.HiddenFor(m => m.DatePosted)
     @Html.HiddenFor(m => m.DateEdited)
     @Html.HiddenFor(m => m.UserID)
-    
+    @Html.HiddenFor(m => m.CommentID)
 
     <div class="form-horizontal">
 
@@ -33,7 +32,3 @@
         </div>
     </div>
 }
-
-        @section Scripts {
-            @Scripts.Render("~/bundles/jqueryval")
-        }

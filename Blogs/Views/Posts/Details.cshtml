@@ -36,7 +36,7 @@
         </dd>
         </dl>
     @* Create comment on PostID *@
-    <p><a href="../../Comments/Create/@Model.PostID" class="btn btn-primary btn-lg">Comment &raquo;</a></p>
+    @Html.ActionLink("Comment", "Create", "Comments", new { postID = @Model.PostID }, new { @class = "btn btn-primary btn-lg" })
     @Html.Partial("~/Views/Comments/Create.cshtml", new Blogs.Models.Comment { PostID = Model.PostID })
 
     }

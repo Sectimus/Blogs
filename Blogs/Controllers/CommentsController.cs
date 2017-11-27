@@ -36,39 +36,38 @@ namespace Blogs.Controllers
         }
 
         // GET: Comments/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
+
 
         // POST: Comments/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-                                                                                                                             //THIS IS NOT TRIGGERED WHEN A PARTIAL VIEW, BUT WILL WITH NON-PARTIAL VIEW//
-        public ActionResult Create([Bind(Include = "CommentID,PostID,DatePosted,DateEdited,Body,UserID")] Comment comment)
-        {
-            comment.UserID = User.Identity.Name;
-            comment.DatePosted = DateTime.Now;
-            comment.DateEdited = DateTime.Now;
 
-            var errors = ModelState.Values.SelectMany(v => v.Errors);
-            if (ModelState.IsValid)
-            {
-                //Testing if the user is logged in
-                if (User.Identity.IsAuthenticated == true)
-                {
-                    db.Comments.Add(comment);
-                    db.SaveChanges();
-                    return PartialView();
-                }
-            }
-            return PartialView();
+        //////////////
+        //THIS IS IT//
+        //////////////
+        [HttpGet]
+        public ActionResult Create(int postID)
+        {
+            return View(new Comment { PostID = postID });
         }
 
-        // GET: Comments/Edit/5
-        public ActionResult Edit(int? id)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(Comment comment)
+        {
+            comment.UserID = User.Identity.Name;
+            comment.DateEdited = DateTime.Now;
+            db.Comments.Add(comment);
+            db.SaveChanges();
+
+            return RedirectToAction("Details", "Posts", new { @id = comment.PostID });
+        }
+
+
+    // GET: Comments/Edit/5
+    public ActionResult Edit(int? id)
         {
             if (id == null)
             {

@@ -11,7 +11,7 @@ namespace Blogs.Models
     /// </summary>
     public class Comment
     {
-        [Required]
+
         [Key]
         public int CommentID { get; set; }
 
@@ -25,7 +25,6 @@ namespace Blogs.Models
         [DataType(DataType.MultilineText)]
         public String Body { get; set; }
 
-        [Required]
         public String UserID { get; set; }
     }
 }
