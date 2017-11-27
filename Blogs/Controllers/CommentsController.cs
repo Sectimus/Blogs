@@ -36,32 +36,43 @@ namespace Blogs.Controllers
         }
 
         // GET: Comments/Create
-
+         public ActionResult Create()
+        {
+            return View();
+        }
 
         // POST: Comments/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
 
-        //////////////
-        //THIS IS IT//
-        //////////////
+            /// <summary>
+            /// Assigns the passed postID to the comment model PostID
+            /// </summary>
+            /// <param name="postID"></param>
+            /// <returns></returns>
         [HttpGet]
         public ActionResult Create(int postID)
         {
             return View(new Comment { PostID = postID });
         }
 
+        /// <summary>
+        /// Autofills the fields needed to leave a comment (date posted and last edited with the current time, username with logged in user etc.)
+        /// </summary>
+        /// <param name="comment"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Comment comment)
         {
-            comment.UserID = User.Identity.Name;
-            comment.DateEdited = DateTime.Now;
-            db.Comments.Add(comment);
-            db.SaveChanges();
-
+            if (User.Identity.IsAuthenticated)
+            {
+                comment.UserID = User.Identity.Name;
+                comment.DatePosted = DateTime.Now;
+                comment.DateEdited = DateTime.Now;
+                db.Comments.Add(comment);
+                db.SaveChanges();
+            }
             return RedirectToAction("Details", "Posts", new { @id = comment.PostID });
         }
 
@@ -90,9 +101,12 @@ namespace Blogs.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(comment).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (User.Identity.Name == comment.UserID)
+                {
+                    db.Entry(comment).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("../Posts/Details/" + comment.PostID);
+                }
             }
             return View(comment);
         }
@@ -118,9 +132,13 @@ namespace Blogs.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Comment comment = db.Comments.Find(id);
-            db.Comments.Remove(comment);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            if (User.IsInRole("Moderator") || User.Identity.Name == comment.UserID)
+            {
+                db.Comments.Remove(comment);
+                db.SaveChanges();
+                return RedirectToAction("../Posts/Details/" + comment.PostID);
+            }
+            return RedirectToAction("../Posts/Details/" + comment.PostID);
         }
 
         protected override void Dispose(bool disposing)

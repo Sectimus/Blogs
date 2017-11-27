@@ -54,11 +54,11 @@ namespace Blogs.Controllers
             if (ModelState.IsValid)
             {
                 //Testing if the user is logged in
-                if (User.Identity.IsAuthenticated == true)
+                if (User.Identity.IsAuthenticated)
                 {
                     db.Posts.Add(post);
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Details/" + post.PostID);
                 }
             }
             return View(post);
@@ -89,16 +89,20 @@ namespace Blogs.Controllers
             post.DateEdited = DateTime.Now;
             if (ModelState.IsValid)
             {
+                
                 var dbPost = db.Posts.FirstOrDefault(p => p.PostID == post.PostID);
                 if (dbPost == null)
                 {
                     return HttpNotFound();
                 }
-                dbPost.Body = post.Body;
-                dbPost.Title = post.Title;
-                dbPost.DateEdited = DateTime.Now;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (User.Identity.Name == post.UserID)
+                {
+                    dbPost.Body = post.Body;
+                    dbPost.Title = post.Title;
+                    dbPost.DateEdited = DateTime.Now;
+                    db.SaveChanges();
+                    return RedirectToAction("Details/" + post.PostID);
+                }
             }
             return View(post);
         }
@@ -124,9 +128,14 @@ namespace Blogs.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Post post = db.Posts.Find(id);
-            db.Posts.Remove(post);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            if (User.IsInRole("Moderator") || User.Identity.Name == post.UserID)
+            {
+                db.Posts.Remove(post);
+
+                db.SaveChanges();
+                return RedirectToAction("../");
+            }
+            return RedirectToAction("../");
         }
 
         protected override void Dispose(bool disposing)

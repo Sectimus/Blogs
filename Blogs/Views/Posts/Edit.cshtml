@@ -10,12 +10,15 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+    @Html.HiddenFor(m => m.PostID)
+    @Html.HiddenFor(m => m.DatePosted)
+    @Html.HiddenFor(m => m.DateEdited)
+    @Html.HiddenFor(m => m.UserID)
+
     <div class="form-horizontal">
         <h4>Post</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.PostID)
 
         <div class="form-group">
             @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -42,7 +45,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to Post", "Details/" + Model.PostID)
 </div>
 
 @section Scripts {
