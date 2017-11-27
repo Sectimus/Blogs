@@ -51,7 +51,7 @@ namespace Blogs.Controllers
             post.UserID = User.Identity.Name;
             post.DatePosted = DateTime.Now;
             var errors = ModelState.Values.SelectMany(v => v.Errors);
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && !User.IsInRole("Suspended"))
             {
                 //Testing if the user is logged in
                 if (User.Identity.IsAuthenticated)
@@ -87,7 +87,7 @@ namespace Blogs.Controllers
         public ActionResult Edit( Post post)
         {
             post.DateEdited = DateTime.Now;
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && !User.IsInRole("Suspended"))
             {
                 
                 var dbPost = db.Posts.FirstOrDefault(p => p.PostID == post.PostID);

@@ -41,7 +41,13 @@
         }
     </p>
     @* Create comment on PostID *@
-    @Html.ActionLink("Leave a Comment", "Create", "Comments", new { postID = @Model.PostID }, new { @class = "btn btn-primary btn-lg" })
+
+@if (User.Identity.IsAuthenticated && !User.IsInRole("Suspended"))
+ {@Html.ActionLink("Leave a Comment", "Create", "Comments", new { postID = @Model.PostID }, new { @class = "btn btn-primary btn-lg" })}
+@if (User.Identity.IsAuthenticated && User.IsInRole("Suspended"))
+{<p><a href="~/" class="btn btn-primary btn-lg">You are suspended!</a></p>}
+@if (!User.Identity.IsAuthenticated && !User.IsInRole("Suspended"))
+{<p><a href="../Account/Register" class="btn btn-primary btn-lg">Leave a Comment [Create Account]! &raquo;</a></p>}
     @* Comment section *@
 
         @foreach (var c in Model.Comments)
@@ -52,11 +58,11 @@
             <div>
                 <font color="darkgrey">Comment posted by </font><font color="skyblue">@c.UserID</font> <font color="darkgrey">on @c.DatePosted </font>
     @*check to see if it is the same user logged in as posted comment*@
-    @if (User.Identity.Name == c.UserID)
+    @if (User.Identity.Name == c.UserID && !User.IsInRole("Suspended"))
                 {
         @Html.ActionLink("Edit", "../Comments/Edit", new { id = c.CommentID }) <b>|</b>
                 }
-    @if (User.IsInRole("Moderator") || User.Identity.Name == c.UserID)
+    @if ((User.IsInRole("Moderator")) || (User.Identity.Name == c.UserID) && (!User.IsInRole("Suspended")))
     {
         @Html.ActionLink("Delete", "../Comments/Delete", new { id = c.CommentID })
     }

@@ -65,7 +65,7 @@ namespace Blogs.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Comment comment)
         {
-            if (User.Identity.IsAuthenticated)
+            if (User.Identity.IsAuthenticated && !User.IsInRole("Suspended"))
             {
                 comment.UserID = User.Identity.Name;
                 comment.DatePosted = DateTime.Now;
@@ -101,7 +101,7 @@ namespace Blogs.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (User.Identity.Name == comment.UserID)
+                if (User.Identity.Name == comment.UserID && !User.IsInRole("Suspended"))
                 {
                     db.Entry(comment).State = EntityState.Modified;
                     db.SaveChanges();

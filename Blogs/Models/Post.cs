@@ -12,7 +12,7 @@ namespace Blogs.Models
     /// </summary>
     public class Post
     {
-
+        
         [Key]
         public int PostID { get; set; }
 

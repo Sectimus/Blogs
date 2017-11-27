@@ -6,11 +6,13 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
 using Blogs.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Blogs
 {
     public partial class Startup
     {
+
         // For more information on configuring authentication, please visit http://go.microsoft.com/fwlink/?LinkId=301864
         public void ConfigureAuth(IAppBuilder app)
         {
@@ -63,6 +65,10 @@ namespace Blogs
             //    ClientId = "",
             //    ClientSecret = ""
             //});
+
+            //Add Role Manager
+            app.CreatePerOwinContext<ApplicationRoleManager>(ApplicationRoleManager.Create);
+            
         }
     }
 }

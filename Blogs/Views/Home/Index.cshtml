@@ -5,8 +5,14 @@
 <div class="jumbotron">
     <h1>Blogs</h1>
     <p class="lead">Blogs.mvc is a free post website for sharing information.</p>
-    <p><a href="../Posts/Create" class="btn btn-primary btn-lg">Create a new post! &raquo;</a></p>
-
+    @if (!User.Identity.IsAuthenticated && !User.IsInRole("Suspended"))
+    {<p><a href="../Account/Register" class="btn btn-primary btn-lg">Create a new post [Create Account]! &raquo;</a></p>}
+    @if (User.Identity.IsAuthenticated && !User.IsInRole("Suspended"))
+    {<p><a href="../Posts/Create" class="btn btn-primary btn-lg">Create a new post! &raquo;</a></p>}
+    @if (User.Identity.IsAuthenticated && User.IsInRole("Suspended"))
+    {<p><a href="~/" class="btn btn-primary btn-lg">You are suspended!</a></p>}
+        
+    
 
 
     @model IEnumerable<Blogs.Models.Post>
