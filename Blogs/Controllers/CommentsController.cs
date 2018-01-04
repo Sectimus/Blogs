@@ -101,6 +101,7 @@ namespace Blogs.Controllers
         {
             if (ModelState.IsValid)
             {
+                //checks to see if the user is suspended before editing
                 if (User.Identity.Name == comment.UserID && !User.IsInRole("Suspended"))
                 {
                     db.Entry(comment).State = EntityState.Modified;
@@ -132,6 +133,7 @@ namespace Blogs.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Comment comment = db.Comments.Find(id);
+            //checks to see if the posted comment is made by a moderator or the same user thar is logged in
             if (User.IsInRole("Moderator") || User.Identity.Name == comment.UserID)
             {
                 db.Comments.Remove(comment);
