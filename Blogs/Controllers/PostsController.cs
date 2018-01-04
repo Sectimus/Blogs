@@ -20,7 +20,11 @@ namespace Blogs.Controllers
             return View(db.Posts.Include("Comments").ToList());
         }
 
-        // GET: Posts/Details/5
+        /// <summary>
+        /// Post details
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -41,9 +45,11 @@ namespace Blogs.Controllers
             return View();
         }
 
-        // POST: Posts/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Checks if the user is not suspended and also if the model state is valid then tests if the user is logged in and creates a post if all checks pass.
+        /// </summary>
+        /// <param name="post"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Title,Body")] Post post)
@@ -79,9 +85,11 @@ namespace Blogs.Controllers
             return View(post);
         }
 
-        // POST: Posts/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Checks if the user is not suspended and the modelstate is valid then allows the edit to go through.
+        /// </summary>
+        /// <param name="post"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit( Post post)
@@ -122,7 +130,11 @@ namespace Blogs.Controllers
             return View(post);
         }
 
-        // POST: Posts/Delete/5
+        /// <summary>
+        /// Checks if the user is a moderator or that the user was the original poster and allows the delete to go through if true.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

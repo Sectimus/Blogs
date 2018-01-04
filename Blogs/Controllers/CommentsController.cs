@@ -20,7 +20,11 @@ namespace Blogs.Controllers
             return View(db.Comments.ToList());
         }
 
-        // GET: Comments/Details/5
+        /// <summary>
+        /// Will pull up the direct details of any comment, though cannot be accessed.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -92,9 +96,11 @@ namespace Blogs.Controllers
             return View(comment);
         }
 
-        // POST: Comments/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Checks if the user is suspended, and if not: will allow them to edit any comments they have created.
+        /// </summary>
+        /// <param name="comment"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "CommentID,PostID,DatePosted,DateEdited,Body,UserID")] Comment comment)
@@ -127,7 +133,11 @@ namespace Blogs.Controllers
             return View(comment);
         }
 
-        // POST: Comments/Delete/5
+        /// <summary>
+        /// Checks if either the user that left the comment is the person logged in, or if the person logged in has administration rights then if so: deletes the comment.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

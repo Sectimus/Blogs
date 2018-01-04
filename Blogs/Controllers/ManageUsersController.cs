@@ -30,7 +30,11 @@ namespace Blogs.Controllers
             return View(theUsers);
         }
 
-        // GET: ManageUsers/Details/5
+        /// <summary>
+        /// view details of users
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Details(string id)
         {
             ApplicationUser aUser = db.Users.Single(m => m.Id == id);
@@ -87,7 +91,11 @@ namespace Blogs.Controllers
             return View(uvm);
         }
 
-        // POST: ManageUsers/Edit/5
+        /// <summary>
+        /// Checks if the user exists via a userviewmodel then will change attributes on their profile to match the new input, with direct access to suspend and/or promote users to administrator.
+        /// </summary>
+        /// <param name="userViewModel"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(UserViewModel userViewModel)
@@ -131,7 +139,11 @@ namespace Blogs.Controllers
             return View(userViewModel);
         }
 
-        // GET: ManageUsers/Delete/5
+        /// <summary>
+        /// Will check if the user profile to be deleted matches an existing user id then continues if it matches, and aborts the delete if no such user exists.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Delete(string id)
         {
             UserViewModel uvm = new UserViewModel();

@@ -24,16 +24,54 @@ textarea {
 }
 
 .boxcontainer {
-    background-color:lightgrey;
-    color:black;
+    background-color:#FF4F4F;
+    color:white;
     padding:20px; 
     box-shadow: 0 0 5px 2px rgba(0,0,0,.35)
 }
 
 .boxcontainerdark {
-    background-color:darkgray;
-    color:black;
+    background-color:firebrick;
+    color:white;
     padding:20px;
     box-shadow: -4px 0 2px -2px rgba(0,0,0,0.4);
     border-radius: 8px;
+}
+
+ul.nav li a, ul.nav li a:visited {
+    color: white !important;
+}
+
+ul.nav li a:hover, ul.nav li a:active {
+    color: grey !important;
+}
+
+ul.nav li.active a {
+    color: white !important;
+}
+
+.redtext{
+    color: red;
+}
+
+/* BOOTSTRAP OVERRIDE */
+
+/* unvisited link */
+a:link {
+    color: white;
+}
+
+/* visited link */
+a:visited {
+    color: white;
+}
+
+/* visited link */
+a:hover {
+    color: #ff9999;
+}
+
+/* selected link */
+a:active {
+    color: darkred;
 }

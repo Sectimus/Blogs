@@ -19,7 +19,9 @@
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Title)
+                <font color="white">
+                    @Html.DisplayNameFor(model => model.Title)
+                </font>
             </th>
             <th>
                 Posted By
@@ -29,12 +31,14 @@
         {
             <tr>
                 <td>
-                    @Html.ActionLink(item.Title, Url.Content("../Posts/Details"), new { id = item.PostID })
-
-
+                    <font size="+1">
+                        @Html.ActionLink(item.Title, Url.Content("../Posts/Details"), new { id = item.PostID })
+                    </font>
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.UserID)
+                    
+                        @Html.DisplayFor(modelItem => item.UserID)
+                    
                 </td>
             </tr>
 
