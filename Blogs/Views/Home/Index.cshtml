@@ -3,8 +3,8 @@
 }
 
 <div class="jumbotron">
-    <h1>Blogs</h1>
-    <p class="lead">Blogs.mvc is a free post website for sharing information.</p>
+    <h1>Home</h1>
+    <p class="lead">Welcome to The Local Theatre Company website. Here you may read announcements posted by our staff; or view discussions posted by our community. Enjoy Yourself!</p>
     @if (!User.Identity.IsAuthenticated && !User.IsInRole("Suspended"))
     {<p><a href="../Account/Register" class="btn btn-primary btn-lg">Create a new post [Create Account]! &raquo;</a></p>}
     @if (User.Identity.IsAuthenticated && !User.IsInRole("Suspended"))
