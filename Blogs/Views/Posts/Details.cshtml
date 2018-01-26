@@ -47,7 +47,7 @@
 @if (User.Identity.IsAuthenticated && User.IsInRole("Suspended"))
 {<p><a href="~/" class="btn btn-primary btn-lg">You are suspended!</a></p>}
 @if (!User.Identity.IsAuthenticated && !User.IsInRole("Suspended"))
-{<p><a href="../Account/Register" class="btn btn-primary btn-lg">Leave a Comment [Create Account]! &raquo;</a></p>}
+{<p><a href="~/Account/Register" class="btn btn-primary btn-lg">Leave a Comment [Create Account]! &raquo;</a></p>}
     @* Comment section *@
 
         @foreach (var c in Model.Comments)
